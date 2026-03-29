@@ -46,3 +46,7 @@ Element.prototype.tooltipify = function() {
     self.addEventListener("mouseenter", showTooltip);
     self.addEventListener("mouseleave", hideTooltip);
 };
+
+for (const element of document.getElementsByClassName("tooltipper")) {
+    element.tooltipify();
+}
