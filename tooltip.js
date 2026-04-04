@@ -1,10 +1,12 @@
-Element.prototype.tooltipify = () => {
-    const { delay = 1000, text } = this.dataset;
+Element.prototype.tooltipify = function() {
+    const { delay = 1000 } = this.dataset;
+    const text = this.dataset.text ?? this.ariaLabel;
     let active = false;
     const createTooltip = () => {
         if (this.classList.contains('tooltipper-hover')) {
             const tooltip = document.createElement('span');
             tooltip.classList.add('tooltip', 'tooltip-show');
+            tooltip.role = 'tooltip';
             tooltip.textContent = text;
             this.appendChild(tooltip);
         }
