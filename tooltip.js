@@ -1,52 +1,51 @@
-Element.prototype.tooltipify = function() {
-    var self = this;
-    var dataset = self.dataset;
-    var active = false;
-    var createTooltip = function() {
-        if (self.classList.contains("tooltipper-hover")) {
-            var tooltip = document.createElement("span");
-            tooltip.classList.add("tooltip", "tooltip-show");
-            tooltip.innerHTML = dataset.text;
-            self.appendChild(tooltip);
+Element.prototype.tooltipify = () => {
+    const { delay = 1000, text } = this.dataset;
+    let active = false;
+    const createTooltip = () => {
+        if (this.classList.contains('tooltipper-hover')) {
+            const tooltip = document.createElement('span');
+            tooltip.classList.add('tooltip', 'tooltip-show');
+            tooltip.textContent = text;
+            this.appendChild(tooltip);
         }
         else {
             active = false;
         }
     };
-    var showTooltip = function() {
-        self.classList.add("tooltipper-hover");
+    const showTooltip = () => {
+        this.classList.add('tooltipper-hover');
         if (!active) {
             active = true;
-            setTimeout(createTooltip, dataset.delay || 1000);
+            setTimeout(createTooltip, delay);
         }
         
     };
-    var hideTooltip = function() {
-        self.classList.remove("tooltipper-hover");
-        var tooltips = self.getElementsByClassName("tooltip");
-        var tooltip = tooltips[0];
+    const hideTooltip = () => {
+        this.classList.remove('tooltipper-hover');
+        const tooltips = this.getElementsByClassName('tooltip');
+        const tooltip = tooltips[0];
         if (tooltip) {
-            for (var i = 1; i < tooltips.length; i++) {
+            for (let i = 1; i < tooltips.length; i++) {
                 tooltips[i].remove();
             }
-            tooltip.classList.remove("tooltip-show");
-            tooltip.classList.add("tooltip-hide");
-            tooltip.addEventListener("animationend", function() {
+            tooltip.classList.remove('tooltip-show');
+            tooltip.classList.add('tooltip-hide');
+            tooltip.addEventListener('animationend', () => {
                 active = false;
                 tooltip.remove();
-                if (self.classList.contains("tooltipper-hover")) {
+                if (this.classList.contains('tooltipper-hover')) {
                     showTooltip();
                 }
             });
         }
     };
-    document.addEventListener("click", function(event) {
-        (event.target === self ? showTooltip : hideTooltip)();
+    document.addEventListener('click', event => {
+        (event.target === this ? showTooltip : hideTooltip)();
     });
-    self.addEventListener("mouseenter", showTooltip);
-    self.addEventListener("mouseleave", hideTooltip);
+    this.addEventListener('mouseenter', showTooltip);
+    this.addEventListener('mouseleave', hideTooltip);
 };
 
-for (const element of document.getElementsByClassName("tooltipper")) {
+for (const element of document.getElementsByClassName('tooltipper')) {
     element.tooltipify();
 }
