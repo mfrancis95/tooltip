@@ -3,15 +3,15 @@ Element.prototype.tooltipify = function() {
     const text = this.dataset.text ?? this.ariaLabel;
     let active = false;
     const createTooltip = () => {
-        if (this.classList.contains('tooltipper-hover')) {
+        if (this.querySelector('.tooltip')) {
+            active = false;
+        }
+        else {
             const tooltip = document.createElement('span');
             tooltip.classList.add('tooltip', 'tooltip-show');
             tooltip.role = 'tooltip';
             tooltip.textContent = text;
             this.appendChild(tooltip);
-        }
-        else {
-            active = false;
         }
     };
     const showTooltip = () => {
@@ -24,7 +24,7 @@ Element.prototype.tooltipify = function() {
     };
     const hideTooltip = () => {
         this.classList.remove('tooltipper-hover');
-        const tooltips = this.getElementsByClassName('tooltip');
+        const tooltips = this.querySelectorAll('.tooltip');
         const tooltip = tooltips[0];
         if (tooltip) {
             for (let i = 1; i < tooltips.length; i++) {
@@ -33,8 +33,8 @@ Element.prototype.tooltipify = function() {
             tooltip.classList.remove('tooltip-show');
             tooltip.classList.add('tooltip-hide');
             tooltip.addEventListener('animationend', () => {
-                active = false;
                 tooltip.remove();
+                active = false;
                 if (this.classList.contains('tooltipper-hover')) {
                     showTooltip();
                 }
