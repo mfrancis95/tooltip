@@ -41,11 +41,11 @@ Element.prototype.tooltipify = function() {
             });
         }
     };
-    document.addEventListener('click', event => {
+    document.addEventListener('touchstart', event => {
         (event.target === this ? showTooltip : hideTooltip)();
     });
-    this.addEventListener('mouseenter', showTooltip);
-    this.addEventListener('mouseleave', hideTooltip);
+    this.addEventListener('mouseenter', showTooltip, { passive: true });
+    this.addEventListener('mouseleave', hideTooltip, { passive: true });
 };
 
 for (const element of document.getElementsByClassName('tooltipper')) {
