@@ -1,7 +1,7 @@
 Element.prototype.tooltipify = function() {
-    const { delay = 1000 } = this.dataset;
     const text = this.dataset.text ?? this.ariaLabel;
-    const createTooltip = () => {
+    const showTooltip = () => {
+        this.classList.add('tooltipper-hover');
         if (!this.querySelector('.tooltip')) {
             const tooltip = document.createElement('span');
             tooltip.classList.add('tooltip', 'tooltip-show');
@@ -9,10 +9,6 @@ Element.prototype.tooltipify = function() {
             tooltip.textContent = text;
             this.appendChild(tooltip);
         }
-    };
-    const showTooltip = () => {
-        this.classList.add('tooltipper-hover');
-        setTimeout(createTooltip, delay);
     };
     const hideTooltip = () => {
         this.classList.remove('tooltipper-hover');

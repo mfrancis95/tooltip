@@ -36,19 +36,6 @@ Specifies the text content to show inside the tooltip.
 <span class="tooltipper" data-text="JavaScript"></span>
 ```
 
-### `data-delay`
-
-Controls how long to wait before showing the tooltip, in milliseconds.
-
-- **Type:** Number (as string)
-- **Default:** `1000`
-- **Example:**
-
-```html
-<span class="tooltipper" aria-label="Immediate tooltip" data-delay="0"></span>
-<span class="tooltipper" aria-label="Delayed tooltip" data-delay="500"></span>
-```
-
 ## Basic Styling
 
 The script creates a child element with the `tooltip` class when active. You are expected to style it in CSS:
