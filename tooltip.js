@@ -26,7 +26,7 @@ Element.prototype.tooltipify = function() {
     };
     document.addEventListener('touchstart', event => {
         (event.target === this ? showTooltip : hideTooltip)();
-    });
+    }, { passive: true });
     this.addEventListener('mouseenter', showTooltip, { passive: true });
     this.addEventListener('mouseleave', hideTooltip, { passive: true });
 };
